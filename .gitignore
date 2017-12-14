@@ -1,0 +1,5 @@
+demo-plugin/.vs/
+*.user
+demo-plugin/demo-plugin/bin/
+demo-plugin/demo-plugin/obj/
+demo-plugin/packages/
