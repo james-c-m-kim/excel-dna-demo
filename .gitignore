@@ -2,6 +2,7 @@ bin/
 obj/
 packages/
 deploy/
+xll/
 demo-plugin/.vs/
 *.user
 demo-plugin/demo-plugin/bin/
