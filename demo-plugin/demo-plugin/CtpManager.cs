@@ -20,6 +20,11 @@ namespace demo_plugin
             excelPane.DockPosition = MsoCTPDockPosition.msoCTPDockPositionLeft;
         }
 
+        public static void Initialize()
+        {
+            excelPane.Visible = false;
+        }
+
         public static void ShowPane()
         {
             excelPane.Visible = true;

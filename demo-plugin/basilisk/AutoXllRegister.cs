@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Win32;
+using ExcelDna.Integration;
+using Microsoft.Office.Interop.Excel;
 
 namespace basilisk
 {
@@ -14,19 +12,32 @@ namespace basilisk
         public string registerName = "demo-plugin-Addin.xll";
         public string userPath = "";
 
+        public string InstallationPath
+        {
+            get
+            {
+                var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "Citi", "DemoPlugIn");
+                return path;
+            }
+        }
+
         public void RegisterXll()
         {
-            var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Office\16.0\Excel\Options", true);
+            var app = (Application)ExcelDnaUtil.Application;
+
+            // grab an immutable copy of the installed Excel version code
+            var versionToken = app.Version;
+
+            var key = Registry.CurrentUser.OpenSubKey($"Software\\Microsoft\\Office\\{versionToken}\\Excel\\Options", true);
+            if (key == null) return;
             var allChildValues = key.GetValueNames();
 
+            // check if the plug-in is already installed...
             var openValues = allChildValues.Where(v => v.StartsWith("OPEN")).ToList();
-
             if (openValues.Any(v => key.GetValue(v).ToString().Contains("demo-plugin-AddIn.xll"))) return;
 
-
-            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "Citi", "DemoPlugIn");
-
+            var path = InstallationPath;
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
             var xllToRegister = $"{path}\\demo-plugin-AddIn.xll";

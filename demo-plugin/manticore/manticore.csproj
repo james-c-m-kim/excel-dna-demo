@@ -149,5 +149,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\basilisk\basilisk.csproj">
+      <Project>{771316a2-4521-45d0-8801-1e233dbf0f8c}</Project>
+      <Name>basilisk</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

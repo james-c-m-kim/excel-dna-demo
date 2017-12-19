@@ -14,7 +14,7 @@ namespace demo_plugin
             ExcelAsyncUtil.Initialize();
             ExcelIntegration.RegisterUnhandledExceptionHandler(ex => $"EXCEPTION: {ex.ToString()}");
 
-            CtpManager.HidePane();
+            CtpManager.Initialize();
         }
 
         public void AutoClose()

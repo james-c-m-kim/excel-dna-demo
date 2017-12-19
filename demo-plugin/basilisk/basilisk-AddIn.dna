@@ -1,0 +1,5 @@
+<!--
+<DnaLibrary Name="basilisk Add-In" RuntimeVersion="v4.0">
+  <ExternalLibrary Path="basilisk.dll" ExplicitExports="false" LoadFromBytes="true" Pack="true" />
+</DnaLibrary>
+-->
