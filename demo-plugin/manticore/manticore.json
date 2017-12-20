@@ -1,0 +1,10 @@
+﻿{
+  "endPoint": "http://127.0.0.1:4242/deploy",
+  "deployments": [
+    {
+      "package": "demo-plugin",
+      "autoexec": "demo-plugin-AddIn.xll",
+      "mode" :  "installOnly"
+    }
+  ] 
+}

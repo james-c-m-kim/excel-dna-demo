@@ -29,6 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
+    <OutputPath>bin\Deploy\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ExcelDna.Integration, Version=0.34.6373.42344, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelDna.Integration.0.34.6\lib\ExcelDna.Integration.dll</HintPath>

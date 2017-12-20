@@ -14,7 +14,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>C:\dev\excel-dna-demo\deploy\</PublishUrl>
+    <PublishUrl>C:\dev\excel-plugin-demo\manticore\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -24,7 +24,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://localhost:8080/</InstallUrl>
+    <InstallUrl>http://127.0.0.1:4242/manticore/</InstallUrl>
     <TargetCulture>en-US</TargetCulture>
     <ProductName>Manticore Deployment Tool</ProductName>
     <PublisherName>Avanade Inc</PublisherName>
@@ -75,9 +75,13 @@
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
+    <OutputPath>bin\Deploy\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -127,6 +131,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="manticore.json" />
     <None Include="manticore_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -148,12 +153,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\basilisk\basilisk.csproj">
-      <Project>{771316a2-4521-45d0-8801-1e233dbf0f8c}</Project>
-      <Name>basilisk</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
+    <OutputPath>bin\Deploy\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ExcelDna.Integration, Version=0.34.6373.42344, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelDna.Integration.0.34.6\lib\ExcelDna.Integration.dll</HintPath>
@@ -135,17 +138,26 @@
     <Error Condition="!Exists('..\packages\ExcelDna.AddIn.0.34.6\tools\ExcelDna.AddIn.targets') And ('$(RunExcelDnaBuild)' != '' And $(RunExcelDnaBuild))" Text="You are trying to build with ExcelDna, but the NuGet targets file that ExcelDna depends on is not available on this computer. This is probably because the ExcelDna package has not been committed to source control, or NuGet Package Restore is not enabled. Please enable NuGet Package Restore to download them. For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
     <Error Condition="Exists('..\packages\ExcelDna.AddIn.0.34.6\tools\ExcelDna.AddIn.targets') And ('$(RunExcelDnaBuild)' != '' And $(RunExcelDnaBuild))" Text="ExcelDna cannot be run because NuGet packages were restored prior to the build running, and the targets file was unavailable when the build started. Please build the project again to include these packages in the build. You may also need to make sure that your build server does not delete packages prior to each build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
-  <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
+  <!--<Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
-  </Target>
-  <Target Name="Zip" AfterTargets="AfterBuild">
-    <ItemGroup>
-      <ZipFiles Include="$(OutputPath)\*.*"/>
-    </ItemGroup>
-    <Zip ZipFileName="demo-plugin.zip" WorkingDirectory="$(MSBuildProjectDirectory)\..\..\deploy" Files="@(ZipFiles)" />
+  </Target>-->
+  <ItemGroup>
+    <Link Include="$(OutputPath)\*.dll"/>
+    <Link Include="$(OutputPath)\*.exe" />
+    <Link Include="$(OutputPath)\*.dna" />
+    <Link Include="$(OutputPath)\*.xll" />
+    <Link Include="$(OutputPath)\*.config" />
+  </ItemGroup>
+  <Import Project=".\taskext\MSBuildTasks.targets"/>
+  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Deploy'">
+    <PropertyGroup>
+      <ReleasePath>bin\Deploy</ReleasePath>
+      <DateMarker>$([System.DateTime]::Now.ToString(yyyyMMdd-hhmmss))</DateMarker>
+    </PropertyGroup>
+    <Zip ZipFileName="..\..\deploy\demo-plugin-$(DateMarker).zip" WorkingDirectory="$(ReleasePath)" Files="@(Content);@(Link)" />
   </Target>
 </Project>
