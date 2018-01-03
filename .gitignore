@@ -1,11 +1,11 @@
+bin/
+obj/
+packages/
+deploy/
+xll/
 demo-plugin/.vs/
 *.user
 demo-plugin/demo-plugin/bin/
 demo-plugin/demo-plugin/obj/
 demo-plugin/packages/
-demo-plugin/basilisk/bin/
-demo-plugin/basilisk/obj/
-demo-plugin/manticore/bin/
-demo-plugin/manticore/obj/
-deploy/demo-plugin-*.zip
 manticore/
