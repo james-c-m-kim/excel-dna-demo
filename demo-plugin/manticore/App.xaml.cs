@@ -16,8 +16,23 @@ namespace manticore
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            MessageBox.Show("test");
-            Environment.Exit(0);
+
+            try
+            {
+                // unpack/deploy the XLL
+                new PackageDeployment().Deploy();
+
+                // execute the XLL for first time
+                new PackageRunner().Run();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unable to deploy:\n{ex.Message}");
+            }
+            finally
+            {
+                Environment.Exit(0);
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ namespace demo_plugin
 
         public void ShowHello(IRibbonControl rbControl)
         {
-            MessageBox.Show("Hello there!");
+            MessageBox.Show("Well there, hello stranger, once again!");
         }
 
         public void ShowPane(IRibbonControl rbControl)
