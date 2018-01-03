@@ -146,18 +146,25 @@
     <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
   </Target>-->
   <ItemGroup>
-    <Link Include="$(OutputPath)\*.dll"/>
+    <Link Include="$(OutputPath)\*.dll" />
     <Link Include="$(OutputPath)\*.exe" />
     <Link Include="$(OutputPath)\*.dna" />
     <Link Include="$(OutputPath)\*.xll" />
     <Link Include="$(OutputPath)\*.config" />
   </ItemGroup>
-  <Import Project=".\taskext\MSBuildTasks.targets"/>
+  <Import Project=".\taskext\MSBuildTasks.targets" />
   <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Deploy'">
     <PropertyGroup>
       <ReleasePath>bin\Deploy</ReleasePath>
       <DateMarker>$([System.DateTime]::Now.ToString(yyyyMMdd-hhmmss))</DateMarker>
     </PropertyGroup>
+    <Delete Files="..\..\deploy\demo-plugin.zip" />
     <Zip ZipFileName="..\..\deploy\demo-plugin-$(DateMarker).zip" WorkingDirectory="$(ReleasePath)" Files="@(Content);@(Link)" />
+    <Zip ZipFileName="..\..\deploy\demo-plugin.zip" WorkingDirectory="$(ReleasePath)" Files="@(Content);@(Link)" />
+    <Copy SourceFiles="..\..\deploy\demo-plugin.zip" DestinationFiles="..\manticore\demo-plugin.zip" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>
